@@ -8,6 +8,7 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/oklog/ulid/v2 v2.0.2
 	github.com/stretchr/testify v1.6.1
+	github.com/thoas/go-funk v0.7.0
 	go.elastic.co/apm/module/apmgrpc v1.11.0
 	go.elastic.co/apm/module/apmmongo v1.11.0
 	go.mongodb.org/mongo-driver v1.5.1

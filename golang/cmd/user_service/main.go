@@ -24,6 +24,7 @@ func main() {
 		panic(err)
 	}
 
+	mongo.EnsureIndexes(mongoClient)
 	app.MongoDbClient = mongoClient
 
 	t := transport.NewTransport(app)

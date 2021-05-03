@@ -5,6 +5,7 @@ import (
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
+	m "github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -28,7 +29,7 @@ func (r *UserRepo) CreateUser(ctx context.Context, user entity.User) error {
 	user.ID = pkg.NewULID()
 	user.Password = hashedPassword
 
-	_, err = r.db.Collection(CollectionUsers).InsertOne(ctx, user)
+	_, err = r.db.Collection(m.CollectionUsers).InsertOne(ctx, user)
 	return err
 }
 
