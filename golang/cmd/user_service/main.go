@@ -1,34 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"sync"
 
-	"net/http"
-	"os"
-
-	"github.com/hidayatullahap/go-monorepo-example/pkg/hello"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/transport"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	var PORT string
-
-	if PORT = os.Getenv("PORT"); PORT == "" {
-		log.Fatal("PORT not defined")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
 	}
 
-	log.Printf("%+v", PORT)
+	app := entity.NewApp()
 
-	var APP_NAME string
+	t := transport.NewTransport(app)
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
 
-	if APP_NAME = os.Getenv("APP_NAME"); APP_NAME == "" {
-		log.Fatal("APP_NAME not defined")
-	}
+	t.GrpcServer.Start()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		msg := hello.GetHello(APP_NAME)
-		fmt.Fprintf(w, "%s: %s\n", msg, r.URL.Path)
-	})
-
-	http.ListenAndServe(":"+PORT, nil)
+	wg.Wait()
 }
