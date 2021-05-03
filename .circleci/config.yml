@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: cibuilds/docker
-    working_directory: ~/warungPintar/
+    working_directory: ~/movie-app/
     steps:
       - checkout
       - setup_remote_docker:

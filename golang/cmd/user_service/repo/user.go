@@ -2,9 +2,9 @@ package repo
 
 import (
 	"context"
-	"log"
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -17,9 +17,10 @@ type UserRepo struct {
 }
 
 func (r *UserRepo) CreateUser(ctx context.Context, user entity.User) error {
-	log.Print("didalam create user repo")
+	user.ID = pkg.NewULID()
 
-	return nil
+	_, err := r.db.Collection(CollectionUsers).InsertOne(ctx, user)
+	return err
 }
 
 func NewUserRepo(app *entity.App) IUserRepo {

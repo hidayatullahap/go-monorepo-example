@@ -38,7 +38,7 @@ func (m *Mongo) Connect(ctx context.Context) (*mongo.Database, error) {
 		maxPool = maxPoolI
 	}
 
-	opt := options.Client().SetAppName("movie-service").
+	opt := options.Client().SetAppName("movie-app").
 		SetMonitor(apmmongo.CommandMonitor()).
 		SetMaxPoolSize(uint64(maxPool))
 
@@ -54,25 +54,25 @@ func (m *Mongo) Connect(ctx context.Context) (*mongo.Database, error) {
 	}
 
 	log.Printf("Connected to MongoDB! env: %v pool size: %v", mode, maxPool)
-	db := client.Database(m.config.Pool)
+	db := client.Database(m.config.Name)
 	return db, nil
 }
 
 func (m *Mongo) devConnectionScript() string {
 	hostName := fmt.Sprintf("%s:%s", m.config.Host, m.config.Port)
-	log.Println("Connecting to MongoDB Server Dev " + hostName + " database: " + m.config.Name)
 
 	var usernameAndPassword string
 	if m.config.Username != "" {
 		usernameAndPassword = fmt.Sprintf("%s:%s@", m.config.Username, m.config.Password)
-
 	}
+
 	// auth source database for mongodb connection, if empty it would be default as `admin`
 	var authSource string
 	if m.config.Auth != "" {
 		authSource = "/?authSource=" + m.config.Auth
 	}
 
+	log.Println("Connecting to MongoDB Server Dev " + hostName + " database: " + m.config.Name)
 	return fmt.Sprintf("mongodb://%s%s%s", usernameAndPassword, hostName, authSource)
 }
 
