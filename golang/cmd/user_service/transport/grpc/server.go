@@ -9,7 +9,7 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/grpc/middleware/validator"
-	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/user"
+	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/users"
 	"go.elastic.co/apm/module/apmgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -39,7 +39,7 @@ func (a *Server) Start() {
 	hsrv.SetServingStatus("", healthpb.HealthCheckResponse_SERVING)
 	healthpb.RegisterHealthServer(s, hsrv)
 
-	pb.RegisterUserServer(s, NewGrpcHandler(a.app))
+	pb.RegisterUsersServer(s, NewGrpcHandler(a.app))
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
