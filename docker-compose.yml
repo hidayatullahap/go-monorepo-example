@@ -10,33 +10,56 @@ services:
       - 27020:27017
     volumes:
       - mongodb_data_container:/data/db
-  calypso:
+  #  calypso:
+  #    build:
+  #      context: ./golang
+  #      dockerfile: ./Dockerfile
+  #      args:
+  #        project: ./cmd/calypso
+  #        port: 3001
+  #    environment:
+  #      - APP_NAME=calypso
+  #    ports:
+  #      - 8001:3000
+  #    restart: on-failure
+  #    volumes:
+  #      - ./golang:/usr/src/app
+  #    networks:
+  #      - monorepo_net
+  #  echo:
+  #    build:
+  #      context: ./golang
+  #      dockerfile: ./Dockerfile
+  #      args:
+  #        project: ./cmd/echo
+  #        port: 3001
+  #    environment:
+  #      - APP_NAME=echo
+  #    ports:
+  #      - 8002:3000
+  #    restart: on-failure
+  #    volumes:
+  #      - ./golang:/usr/src/app
+  #    networks:
+  #      - monorepo_net
+  user_service:
     build:
       context: ./golang
       dockerfile: ./Dockerfile
       args:
-        project: ./cmd/calypso
-        port: 3001
-    environment:
-      - APP_NAME=calypso
-    ports:
-      - 8001:3000
-    restart: on-failure
-    volumes:
-      - ./golang:/usr/src/app
-    networks:
-      - monorepo_net
-  echo:
-    build:
-      context: ./golang
-      dockerfile: ./Dockerfile
-      args:
-        project: ./cmd/echo
-        port: 3001
+        project: ./cmd/user_service
     environment:
       - APP_NAME=echo
+      - DB_HOST=127.0.0.1
+      - DB_PORT=27020
+      - DB_NAME=badger_db
+      - DB_AUTH=
+      - DB_USERNAME=hidayatullahagung
+      - DB_PASSWORD=12345678
+      - DB_POOL=100
+      - GRPC_PORT=9090
     ports:
-      - 8002:3000
+      - 9091:9090
     restart: on-failure
     volumes:
       - ./golang:/usr/src/app

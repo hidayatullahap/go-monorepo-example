@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"os"
@@ -26,7 +27,7 @@ func (a *Server) Start() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	} else {
-		log.Println("Starting grpc server at port :" + port)
+		fmt.Println("gRPC server start at port :" + port)
 	}
 
 	s := grpc.NewServer(grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(

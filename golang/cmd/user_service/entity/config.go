@@ -1,8 +1,6 @@
 package entity
 
-import (
-	"github.com/hidayatullahap/go-monorepo-example/pkg"
-)
+import "os"
 
 type Mongo struct {
 	Host     string `env:"DB_HOST,required"`
@@ -19,21 +17,17 @@ type Config struct {
 }
 
 func NewConfig() Config {
-	var (
-		c     Config
-		mongo Mongo
-	)
+	var c Config
 
-	var configs []interface{}
-	configs = append(configs, &mongo)
-	for _, i := range configs {
-		err := pkg.MarshalEnv(i)
-		if err != nil {
-			panic(err)
-		}
+	c.Mongo = Mongo{
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
+		Name:     os.Getenv("DB_NAME"),
+		Auth:     os.Getenv("DB_AUTH"),
+		Username: os.Getenv("DB_USERNAME"),
+		Password: os.Getenv("DB_PASSWORD"),
+		Pool:     os.Getenv("DB_POOL"),
 	}
-
-	c.Mongo = mongo
 
 	return c
 }

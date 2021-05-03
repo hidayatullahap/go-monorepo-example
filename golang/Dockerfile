@@ -7,8 +7,9 @@ WORKDIR /usr/src/app
 # Copy go.mod, go.sum files and download deps
 COPY go.mod go.sum ./
 RUN go mod download
-RUN go get github.com/rakyll/gotest
-RUN go get github.com/codegangsta/gin
+#RUN go get github.com/rakyll/gotest
+#RUN go get github.com/codegangsta/gin
+RUN go get github.com/cosmtrek/air
 
 # Copy sources to the working directory
 COPY . .
@@ -21,4 +22,6 @@ ENV GOARCH amd64
 # Run the app
 ARG project
 ENV PROJECT $project
-CMD /go/bin/gin -d ${PROJECT} run main.go
+
+#CMD /go/bin/gin -d ${PROJECT} run main.
+CMD cd ${PROJECT} && air
