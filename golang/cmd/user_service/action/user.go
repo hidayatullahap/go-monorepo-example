@@ -15,11 +15,14 @@ type UserAction struct {
 	userRepo repo.IUserRepo
 }
 
+// TODO: search existing username
 func (a *UserAction) CreateUser(ctx context.Context, user entity.User) error {
 	err := a.userRepo.CreateUser(ctx, user)
 	return err
 }
 
 func NewUserAction(app *entity.App) IUserAction {
-	return &UserAction{userRepo: repo.NewUserRepo(app)}
+	return &UserAction{
+		userRepo: repo.NewUserRepo(app),
+	}
 }
