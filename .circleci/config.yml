@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: cibuilds/docker
-    working_directory: ~/fullstack-monorepo/
+    working_directory: ~/warungPintar/
     steps:
       - checkout
       - setup_remote_docker:
