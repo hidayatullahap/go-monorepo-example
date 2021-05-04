@@ -14,6 +14,16 @@ type Handler struct {
 	movieAction action.IMovieAction
 }
 
+func (h *Handler) DetailMovie(ctx context.Context, request *pb.DetailRequest) (*pb.DetailResponse, error) {
+	res, err := h.movieAction.DetailMovie(ctx, request.OmdbId)
+	if err != nil {
+		return nil, err
+	}
+
+	pbRes := builder.BuildDetailMovieProto(res)
+	return pbRes, err
+}
+
 func (h *Handler) SearchMovie(ctx context.Context, request *pb.SearchRequest) (*pb.SearchResponse, error) {
 	req := entity.SearchRequest{
 		Query: request.Query,

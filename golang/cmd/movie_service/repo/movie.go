@@ -13,6 +13,7 @@ import (
 
 type IMovieRepo interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
+	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
 }
 
 type MovieRepo struct {
@@ -29,6 +30,22 @@ func (r *MovieRepo) SearchMovie(ctx context.Context, search entity.SearchRequest
 		End()
 
 	var res entity.SearchResponse
+	err := json.Unmarshal([]byte(body), &res)
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+func (r *MovieRepo) DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error) {
+	_, body, _ := gorequest.New().
+		Get(r.service.OmdbHost).
+		Query("apikey=" + r.service.OmdbApiKey).
+		Query("i=" + omdbID).
+		End()
+
+	var res entity.DetailResponse
 	err := json.Unmarshal([]byte(body), &res)
 	if err != nil {
 		return res, err
