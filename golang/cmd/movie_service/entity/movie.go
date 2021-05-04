@@ -5,6 +5,12 @@ type SearchRequest struct {
 	Page  int64
 }
 
+type WatchlistRequest struct {
+	UserID string
+	OmdbID string
+	Fav    bool
+}
+
 type SearchResponse struct {
 	Movies       []Movie `json:"Search"`
 	TotalResults string  `json:"totalResults"`
@@ -45,9 +51,17 @@ type DetailResponse struct {
 	Production string   `json:"Production"`
 	Website    string   `json:"Website"`
 	Response   string   `json:"Response"`
+	Error      string   `json:"error,omitempty"`
 }
 
 type Rating struct {
 	Source string `json:"Source"`
 	Value  string `json:"Value"`
+}
+
+type Watchlist struct {
+	ID         string `json:"_id,omitempty" bson:"_id,omitempty"`
+	UserID     string `json:"user_id" bson:"user_id"`
+	OmdbID     string `json:"omdb_id" bson:"omdb_id"`
+	MovieTitle string `json:"movie_title" bson:"movie_title"`
 }

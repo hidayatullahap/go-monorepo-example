@@ -6,14 +6,21 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/movie_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/pkg"
+	m "github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
 	"github.com/parnurzeal/gorequest"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type IMovieRepo interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
 	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
+	AddWatchlist(ctx context.Context, req entity.WatchlistRequest) error
 }
 
 type MovieRepo struct {
@@ -51,7 +58,32 @@ func (r *MovieRepo) DetailMovie(ctx context.Context, omdbID string) (entity.Deta
 		return res, err
 	}
 
+	if res.Error != "" {
+		return res, errors.InvalidArgument(res.Error)
+	}
+
 	return res, nil
+}
+
+func (r *MovieRepo) AddWatchlist(ctx context.Context, req entity.WatchlistRequest) error {
+	movie, err := r.DetailMovie(ctx, req.OmdbID)
+	if err != nil {
+		return err
+	}
+
+	wl := entity.Watchlist{
+		UserID:     req.UserID,
+		OmdbID:     req.OmdbID,
+		MovieTitle: movie.Title,
+	}
+
+	opt := &options.UpdateOptions{
+		Upsert: aws.Bool(true),
+	}
+
+	data := bson.M{"$set": &wl, "$setOnInsert": bson.M{"_id": pkg.NewULID()}}
+	_, err = r.db.Collection(m.CollectionWatchlist).UpdateOne(ctx, bson.M{"user_id": req.UserID}, &data, opt)
+	return err
 }
 
 func NewMovieRepo(app *entity.App) IMovieRepo {

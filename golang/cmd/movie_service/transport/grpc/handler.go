@@ -14,6 +14,16 @@ type Handler struct {
 	movieAction action.IMovieAction
 }
 
+func (h *Handler) Watchlist(ctx context.Context, request *pb.WatchlistRequest) (*pb.NoResponse, error) {
+	err := h.movieAction.Watchlist(ctx, entity.WatchlistRequest{
+		UserID: request.UserId,
+		OmdbID: request.OmdbId,
+		Fav:    false,
+	})
+
+	return &pb.NoResponse{}, err
+}
+
 func (h *Handler) DetailMovie(ctx context.Context, request *pb.DetailRequest) (*pb.DetailResponse, error) {
 	res, err := h.movieAction.DetailMovie(ctx, request.OmdbId)
 	if err != nil {

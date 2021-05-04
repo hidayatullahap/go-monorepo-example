@@ -10,22 +10,29 @@ import (
 type IMovieAction interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
 	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
+	Watchlist(ctx context.Context, req entity.WatchlistRequest) error
 }
 
 type MovieAction struct {
-	authRepo repo.IMovieRepo
+	movieRepo repo.IMovieRepo
 }
 
 func (a *MovieAction) SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error) {
-	return a.authRepo.SearchMovie(ctx, search)
+	return a.movieRepo.SearchMovie(ctx, search)
 }
 
 func (a *MovieAction) DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error) {
-	return a.authRepo.DetailMovie(ctx, omdbID)
+	return a.movieRepo.DetailMovie(ctx, omdbID)
+}
+
+func (a *MovieAction) Watchlist(ctx context.Context, req entity.WatchlistRequest) error {
+	err := a.movieRepo.AddWatchlist(ctx, req)
+
+	return err
 }
 
 func NewMovieAction(app *entity.App) IMovieAction {
 	return &MovieAction{
-		authRepo: repo.NewMovieRepo(app),
+		movieRepo: repo.NewMovieRepo(app),
 	}
 }
