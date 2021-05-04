@@ -3,6 +3,7 @@ module github.com/hidayatullahap/go-monorepo-example
 go 1.13
 
 require (
+	github.com/aws/aws-sdk-go v1.34.28
 	github.com/golang/protobuf v1.5.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/joho/godotenv v1.3.0

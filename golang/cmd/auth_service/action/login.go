@@ -32,5 +32,16 @@ func (a *AuthAction) Login(ctx context.Context, user entity.User) (string, error
 		return token, err
 	}
 
+	upsertToken := entity.Token{
+		UserID:   dUser.ID,
+		Username: user.Username,
+		Token:    token,
+	}
+
+	err = a.authRepo.UpdateToken(ctx, upsertToken)
+	if err != nil {
+		return token, err
+	}
+
 	return token, nil
 }

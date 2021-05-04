@@ -1,5 +1,6 @@
 package mongo
 
 const (
-	CollectionUsers = "users"
+	CollectionUsers     = "users"
+	CollectionUserToken = "user_token"
 )

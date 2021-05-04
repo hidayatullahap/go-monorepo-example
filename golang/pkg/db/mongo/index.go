@@ -20,6 +20,7 @@ func EnsureIndexes(db *mongo.Database) {
 	}
 
 	EnsureIndex(db, CollectionUsers, bson.M{"username": 1}, opt)
+	EnsureIndex(db, CollectionUserToken, bson.M{"token": 1}, opt)
 }
 
 // EnsureIndex is for create index if not exist
