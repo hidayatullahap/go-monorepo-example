@@ -18,7 +18,7 @@ func (h *Handler) Watchlist(ctx context.Context, request *pb.WatchlistRequest) (
 	err := h.movieAction.Watchlist(ctx, entity.WatchlistRequest{
 		UserID: request.UserId,
 		OmdbID: request.OmdbId,
-		Fav:    false,
+		Fav:    request.Fav,
 	})
 
 	return &pb.NoResponse{}, err

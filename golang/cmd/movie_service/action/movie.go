@@ -26,8 +26,12 @@ func (a *MovieAction) DetailMovie(ctx context.Context, omdbID string) (entity.De
 }
 
 func (a *MovieAction) Watchlist(ctx context.Context, req entity.WatchlistRequest) error {
-	err := a.movieRepo.AddWatchlist(ctx, req)
+	if req.Fav == false {
+		errDelete := a.movieRepo.RemoveWatchlistMovie(ctx, req)
+		return errDelete
+	}
 
+	err := a.movieRepo.AddWatchlistMovie(ctx, req)
 	return err
 }
 
