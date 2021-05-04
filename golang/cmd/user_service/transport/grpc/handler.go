@@ -14,6 +14,13 @@ type Handler struct {
 	userAction action.IUserAction
 }
 
+func (h *Handler) Login(ctx context.Context, pbUser *pb.User) (*pb.Token, error) {
+	user := builder.BuildUserFromProto(pbUser)
+	token, err := h.userAction.Login(ctx, user)
+
+	return &pb.Token{Token: token}, err
+}
+
 func (h *Handler) CreateUser(ctx context.Context, pbUser *pb.User) (*pb.NoResponse, error) {
 	user := builder.BuildUserFromProto(pbUser)
 	err := h.userAction.CreateUser(ctx, user)

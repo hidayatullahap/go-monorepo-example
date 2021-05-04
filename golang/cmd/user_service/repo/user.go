@@ -17,19 +17,17 @@ type IUserRepo interface {
 }
 
 type UserRepo struct {
-	db    *mongo.Database
-	crypt *pkg.Crypt
+	db *mongo.Database
 }
 
 func (r *UserRepo) CreateUser(ctx context.Context, user entity.User) error {
-	var hashedPassword string
-	hashedPassword, err := r.crypt.HashAndSalt([]byte(user.Password))
+	hash, err := pkg.HashAndSalt([]byte(user.Password))
 	if err != nil {
 		return errors.InternalError(err.Error())
 	}
 
 	user.ID = pkg.NewULID()
-	user.Password = hashedPassword
+	user.Password = string(hash)
 
 	_, err = r.db.Collection(m.CollectionUsers).InsertOne(ctx, user)
 	return err

@@ -4,7 +4,9 @@ package users;
 
 service Users {
   rpc Hello (HelloRequest) returns (HelloResponse);
+
   rpc CreateUser (User) returns (NoResponse);
+  rpc Login (User) returns (Token);
 }
 
 message HelloRequest {
@@ -13,6 +15,10 @@ message HelloRequest {
 
 message HelloResponse {
   string msg = 1;
+}
+
+message Token {
+  string token = 1;
 }
 
 message NoResponse {
