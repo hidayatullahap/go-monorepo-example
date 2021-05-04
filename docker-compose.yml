@@ -10,56 +10,55 @@ services:
       - 27020:27017
     volumes:
       - mongodb_data_container:/data/db
-  #  calypso:
-  #    build:
-  #      context: ./golang
-  #      dockerfile: ./Dockerfile
-  #      args:
-  #        project: ./cmd/calypso
-  #        port: 3001
-  #    environment:
-  #      - APP_NAME=calypso
-  #    ports:
-  #      - 8001:3000
-  #    restart: on-failure
-  #    volumes:
-  #      - ./golang:/usr/src/app
-  #    networks:
-  #      - monorepo_net
-  #  echo:
-  #    build:
-  #      context: ./golang
-  #      dockerfile: ./Dockerfile
-  #      args:
-  #        project: ./cmd/echo
-  #        port: 3001
-  #    environment:
-  #      - APP_NAME=echo
-  #    ports:
-  #      - 8002:3000
-  #    restart: on-failure
-  #    volumes:
-  #      - ./golang:/usr/src/app
-  #    networks:
-  #      - monorepo_net
+    networks:
+      - monorepo_net
   user_service:
+    depends_on:
+      - mongodb_container
     build:
       context: ./golang
       dockerfile: ./Dockerfile
       args:
         project: ./cmd/user_service
     environment:
-      - APP_NAME=echo
-      - DB_HOST=127.0.0.1
-      - DB_PORT=27020
+      - APP_ENV=dev
+      - DB_HOST=mongodb_container
+      - DB_PORT=27017
       - DB_NAME=badger_db
       - DB_AUTH=
       - DB_USERNAME=hidayatullahagung
       - DB_PASSWORD=12345678
       - DB_POOL=100
-      - GRPC_PORT=9090
+      - GRPC_PORT=9000
     ports:
-      - 9091:9090
+      - 9091:9000
+    restart: on-failure
+    volumes:
+      - ./golang:/usr/src/app
+    networks:
+      - monorepo_net
+  auth_service:
+    depends_on:
+      - mongodb_container
+      - user_service
+    build:
+      context: ./golang
+      dockerfile: ./Dockerfile
+      args:
+        project: ./cmd/auth_service
+    environment:
+      - APP_ENV=dev
+      - DB_HOST=mongodb_container
+      - DB_PORT=27017
+      - DB_NAME=badger_db
+      - DB_AUTH=
+      - DB_USERNAME=hidayatullahagung
+      - DB_PASSWORD=12345678
+      - DB_POOL=100
+      - GRPC_PORT=9000
+      - HOST_GRPC_USER_SERVICE=user_service:9000
+    ports:
+      - 9092:9090
     restart: on-failure
     volumes:
       - ./golang:/usr/src/app
