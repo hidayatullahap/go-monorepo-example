@@ -11,6 +11,7 @@ type IMovieAction interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
 	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
 	Watchlist(ctx context.Context, req entity.WatchlistRequest) error
+	GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error)
 }
 
 type MovieAction struct {
@@ -33,6 +34,11 @@ func (a *MovieAction) Watchlist(ctx context.Context, req entity.WatchlistRequest
 
 	err := a.movieRepo.AddWatchlistMovie(ctx, req)
 	return err
+}
+
+func (a *MovieAction) GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error) {
+	list, err := a.movieRepo.GetWatchlist(ctx, userID)
+	return list, err
 }
 
 func NewMovieAction(app *entity.App) IMovieAction {

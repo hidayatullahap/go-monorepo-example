@@ -67,6 +67,53 @@ func (*NoResponse) Descriptor() ([]byte, []int) {
 	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{0}
 }
 
+type GetWatchlistRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *GetWatchlistRequest) Reset() {
+	*x = GetWatchlistRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetWatchlistRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWatchlistRequest) ProtoMessage() {}
+
+func (x *GetWatchlistRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWatchlistRequest.ProtoReflect.Descriptor instead.
+func (*GetWatchlistRequest) Descriptor() ([]byte, []int) {
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *GetWatchlistRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
 type WatchlistRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -80,7 +127,7 @@ type WatchlistRequest struct {
 func (x *WatchlistRequest) Reset() {
 	*x = WatchlistRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[1]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -93,7 +140,7 @@ func (x *WatchlistRequest) String() string {
 func (*WatchlistRequest) ProtoMessage() {}
 
 func (x *WatchlistRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[1]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -106,7 +153,7 @@ func (x *WatchlistRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WatchlistRequest.ProtoReflect.Descriptor instead.
 func (*WatchlistRequest) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{1}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *WatchlistRequest) GetOmdbId() string {
@@ -142,7 +189,7 @@ type SearchRequest struct {
 func (x *SearchRequest) Reset() {
 	*x = SearchRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[2]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -155,7 +202,7 @@ func (x *SearchRequest) String() string {
 func (*SearchRequest) ProtoMessage() {}
 
 func (x *SearchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[2]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -168,7 +215,7 @@ func (x *SearchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
 func (*SearchRequest) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{2}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SearchRequest) GetQuery() string {
@@ -196,7 +243,7 @@ type DetailRequest struct {
 func (x *DetailRequest) Reset() {
 	*x = DetailRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[3]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -209,7 +256,7 @@ func (x *DetailRequest) String() string {
 func (*DetailRequest) ProtoMessage() {}
 
 func (x *DetailRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[3]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -222,7 +269,7 @@ func (x *DetailRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DetailRequest.ProtoReflect.Descriptor instead.
 func (*DetailRequest) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{3}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DetailRequest) GetOmdbId() string {
@@ -246,7 +293,7 @@ type SearchResponse struct {
 func (x *SearchResponse) Reset() {
 	*x = SearchResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[4]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -259,7 +306,7 @@ func (x *SearchResponse) String() string {
 func (*SearchResponse) ProtoMessage() {}
 
 func (x *SearchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[4]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -272,7 +319,7 @@ func (x *SearchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
 func (*SearchResponse) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{4}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SearchResponse) GetMovies() []*Movie {
@@ -318,7 +365,7 @@ type Movie struct {
 func (x *Movie) Reset() {
 	*x = Movie{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[5]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -331,7 +378,7 @@ func (x *Movie) String() string {
 func (*Movie) ProtoMessage() {}
 
 func (x *Movie) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[5]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -344,7 +391,7 @@ func (x *Movie) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Movie.ProtoReflect.Descriptor instead.
 func (*Movie) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{5}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Movie) GetTitle() string {
@@ -417,7 +464,7 @@ type DetailResponse struct {
 func (x *DetailResponse) Reset() {
 	*x = DetailResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[6]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -430,7 +477,7 @@ func (x *DetailResponse) String() string {
 func (*DetailResponse) ProtoMessage() {}
 
 func (x *DetailResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[6]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -443,7 +490,7 @@ func (x *DetailResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DetailResponse.ProtoReflect.Descriptor instead.
 func (*DetailResponse) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{6}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DetailResponse) GetYear() string {
@@ -633,7 +680,7 @@ type Rating struct {
 func (x *Rating) Reset() {
 	*x = Rating{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[7]
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -646,7 +693,7 @@ func (x *Rating) String() string {
 func (*Rating) ProtoMessage() {}
 
 func (x *Rating) ProtoReflect() protoreflect.Message {
-	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[7]
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +706,7 @@ func (x *Rating) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Rating.ProtoReflect.Descriptor instead.
 func (*Rating) Descriptor() ([]byte, []int) {
-	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{7}
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Rating) GetSource() string {
@@ -676,13 +723,134 @@ func (x *Rating) GetValue() string {
 	return ""
 }
 
+type WatchlistResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Movies []*WatchlistMovie `protobuf:"bytes,1,rep,name=movies,proto3" json:"movies,omitempty"`
+}
+
+func (x *WatchlistResponse) Reset() {
+	*x = WatchlistResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WatchlistResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WatchlistResponse) ProtoMessage() {}
+
+func (x *WatchlistResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WatchlistResponse.ProtoReflect.Descriptor instead.
+func (*WatchlistResponse) Descriptor() ([]byte, []int) {
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *WatchlistResponse) GetMovies() []*WatchlistMovie {
+	if x != nil {
+		return x.Movies
+	}
+	return nil
+}
+
+type WatchlistMovie struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId     string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OmdbId     string `protobuf:"bytes,3,opt,name=omdb_id,json=omdbId,proto3" json:"omdb_id,omitempty"`
+	MovieTitle string `protobuf:"bytes,4,opt,name=movie_title,json=movieTitle,proto3" json:"movie_title,omitempty"`
+}
+
+func (x *WatchlistMovie) Reset() {
+	*x = WatchlistMovie{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WatchlistMovie) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WatchlistMovie) ProtoMessage() {}
+
+func (x *WatchlistMovie) ProtoReflect() protoreflect.Message {
+	mi := &file_golang_pkg_proto_movies_movies_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WatchlistMovie.ProtoReflect.Descriptor instead.
+func (*WatchlistMovie) Descriptor() ([]byte, []int) {
+	return file_golang_pkg_proto_movies_movies_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *WatchlistMovie) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *WatchlistMovie) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *WatchlistMovie) GetOmdbId() string {
+	if x != nil {
+		return x.OmdbId
+	}
+	return ""
+}
+
+func (x *WatchlistMovie) GetMovieTitle() string {
+	if x != nil {
+		return x.MovieTitle
+	}
+	return ""
+}
+
 var File_golang_pkg_proto_movies_movies_proto protoreflect.FileDescriptor
 
 var file_golang_pkg_proto_movies_movies_proto_rawDesc = []byte{
 	0x0a, 0x24, 0x67, 0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x2f, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2f, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x06, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x22, 0x0c,
-	0x0a, 0x0a, 0x4e, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x56, 0x0a, 0x10,
+	0x0a, 0x0a, 0x4e, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2e, 0x0a, 0x13,
+	0x47, 0x65, 0x74, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x56, 0x0a, 0x10,
 	0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x12, 0x17, 0x0a, 0x07, 0x6f, 0x6d, 0x64, 0x62, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x06, 0x6f, 0x6d, 0x64, 0x62, 0x49, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x66, 0x61, 0x76,
@@ -756,19 +924,35 @@ var file_golang_pkg_proto_movies_movies_proto_rawDesc = []byte{
 	0x74, 0x69, 0x6e, 0x67, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x12, 0x14, 0x0a, 0x05,
 	0x56, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x56, 0x61, 0x6c,
-	0x75, 0x65, 0x32, 0xbf, 0x01, 0x0a, 0x06, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x12, 0x3c, 0x0a,
-	0x0b, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x15, 0x2e, 0x6d,
-	0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x53, 0x65, 0x61,
-	0x72, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x0b, 0x44,
-	0x65, 0x74, 0x61, 0x69, 0x6c, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x15, 0x2e, 0x6d, 0x6f, 0x76,
-	0x69, 0x65, 0x73, 0x2e, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x16, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x44, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x09, 0x57, 0x61, 0x74,
-	0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x18, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e,
-	0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x12, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x4e, 0x6f, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x65, 0x22, 0x43, 0x0a, 0x11, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a, 0x06, 0x6d, 0x6f, 0x76, 0x69, 0x65,
+	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73,
+	0x2e, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x52,
+	0x06, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x22, 0x73, 0x0a, 0x0e, 0x57, 0x61, 0x74, 0x63, 0x68,
+	0x6c, 0x69, 0x73, 0x74, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65,
+	0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72,
+	0x49, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x6f, 0x6d, 0x64, 0x62, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x6f, 0x6d, 0x64, 0x62, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x6d,
+	0x6f, 0x76, 0x69, 0x65, 0x5f, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0a, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x54, 0x69, 0x74, 0x6c, 0x65, 0x32, 0x87, 0x02, 0x0a,
+	0x06, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x12, 0x3c, 0x0a, 0x0b, 0x53, 0x65, 0x61, 0x72, 0x63,
+	0x68, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x15, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e,
+	0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
+	0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x0b, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x4d,
+	0x6f, 0x76, 0x69, 0x65, 0x12, 0x15, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x44, 0x65,
+	0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x6d, 0x6f,
+	0x76, 0x69, 0x65, 0x73, 0x2e, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x09, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74,
+	0x12, 0x18, 0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x6d, 0x6f, 0x76,
+	0x69, 0x65, 0x73, 0x2e, 0x4e, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x46,
+	0x0a, 0x0c, 0x47, 0x65, 0x74, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x1b,
+	0x2e, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x57, 0x61, 0x74, 0x63, 0x68,
+	0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x6d, 0x6f,
+	0x76, 0x69, 0x65, 0x73, 0x2e, 0x57, 0x61, 0x74, 0x63, 0x68, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -783,31 +967,37 @@ func file_golang_pkg_proto_movies_movies_proto_rawDescGZIP() []byte {
 	return file_golang_pkg_proto_movies_movies_proto_rawDescData
 }
 
-var file_golang_pkg_proto_movies_movies_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_golang_pkg_proto_movies_movies_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_golang_pkg_proto_movies_movies_proto_goTypes = []interface{}{
-	(*NoResponse)(nil),       // 0: movies.NoResponse
-	(*WatchlistRequest)(nil), // 1: movies.WatchlistRequest
-	(*SearchRequest)(nil),    // 2: movies.SearchRequest
-	(*DetailRequest)(nil),    // 3: movies.DetailRequest
-	(*SearchResponse)(nil),   // 4: movies.SearchResponse
-	(*Movie)(nil),            // 5: movies.Movie
-	(*DetailResponse)(nil),   // 6: movies.DetailResponse
-	(*Rating)(nil),           // 7: movies.Rating
+	(*NoResponse)(nil),          // 0: movies.NoResponse
+	(*GetWatchlistRequest)(nil), // 1: movies.GetWatchlistRequest
+	(*WatchlistRequest)(nil),    // 2: movies.WatchlistRequest
+	(*SearchRequest)(nil),       // 3: movies.SearchRequest
+	(*DetailRequest)(nil),       // 4: movies.DetailRequest
+	(*SearchResponse)(nil),      // 5: movies.SearchResponse
+	(*Movie)(nil),               // 6: movies.Movie
+	(*DetailResponse)(nil),      // 7: movies.DetailResponse
+	(*Rating)(nil),              // 8: movies.Rating
+	(*WatchlistResponse)(nil),   // 9: movies.WatchlistResponse
+	(*WatchlistMovie)(nil),      // 10: movies.WatchlistMovie
 }
 var file_golang_pkg_proto_movies_movies_proto_depIdxs = []int32{
-	5, // 0: movies.SearchResponse.movies:type_name -> movies.Movie
-	7, // 1: movies.DetailResponse.ratings:type_name -> movies.Rating
-	2, // 2: movies.Movies.SearchMovie:input_type -> movies.SearchRequest
-	3, // 3: movies.Movies.DetailMovie:input_type -> movies.DetailRequest
-	1, // 4: movies.Movies.Watchlist:input_type -> movies.WatchlistRequest
-	4, // 5: movies.Movies.SearchMovie:output_type -> movies.SearchResponse
-	6, // 6: movies.Movies.DetailMovie:output_type -> movies.DetailResponse
-	0, // 7: movies.Movies.Watchlist:output_type -> movies.NoResponse
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	6,  // 0: movies.SearchResponse.movies:type_name -> movies.Movie
+	8,  // 1: movies.DetailResponse.ratings:type_name -> movies.Rating
+	10, // 2: movies.WatchlistResponse.movies:type_name -> movies.WatchlistMovie
+	3,  // 3: movies.Movies.SearchMovie:input_type -> movies.SearchRequest
+	4,  // 4: movies.Movies.DetailMovie:input_type -> movies.DetailRequest
+	2,  // 5: movies.Movies.Watchlist:input_type -> movies.WatchlistRequest
+	1,  // 6: movies.Movies.GetWatchlist:input_type -> movies.GetWatchlistRequest
+	5,  // 7: movies.Movies.SearchMovie:output_type -> movies.SearchResponse
+	7,  // 8: movies.Movies.DetailMovie:output_type -> movies.DetailResponse
+	0,  // 9: movies.Movies.Watchlist:output_type -> movies.NoResponse
+	9,  // 10: movies.Movies.GetWatchlist:output_type -> movies.WatchlistResponse
+	7,  // [7:11] is the sub-list for method output_type
+	3,  // [3:7] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_golang_pkg_proto_movies_movies_proto_init() }
@@ -829,7 +1019,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WatchlistRequest); i {
+			switch v := v.(*GetWatchlistRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -841,7 +1031,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SearchRequest); i {
+			switch v := v.(*WatchlistRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -853,7 +1043,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DetailRequest); i {
+			switch v := v.(*SearchRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -865,7 +1055,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SearchResponse); i {
+			switch v := v.(*DetailRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -877,7 +1067,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Movie); i {
+			switch v := v.(*SearchResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -889,7 +1079,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DetailResponse); i {
+			switch v := v.(*Movie); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -901,7 +1091,43 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			}
 		}
 		file_golang_pkg_proto_movies_movies_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DetailResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_golang_pkg_proto_movies_movies_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Rating); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_golang_pkg_proto_movies_movies_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WatchlistResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_golang_pkg_proto_movies_movies_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WatchlistMovie); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -919,7 +1145,7 @@ func file_golang_pkg_proto_movies_movies_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_golang_pkg_proto_movies_movies_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -948,6 +1174,7 @@ type MoviesClient interface {
 	SearchMovie(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
 	DetailMovie(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
 	Watchlist(ctx context.Context, in *WatchlistRequest, opts ...grpc.CallOption) (*NoResponse, error)
+	GetWatchlist(ctx context.Context, in *GetWatchlistRequest, opts ...grpc.CallOption) (*WatchlistResponse, error)
 }
 
 type moviesClient struct {
@@ -985,11 +1212,21 @@ func (c *moviesClient) Watchlist(ctx context.Context, in *WatchlistRequest, opts
 	return out, nil
 }
 
+func (c *moviesClient) GetWatchlist(ctx context.Context, in *GetWatchlistRequest, opts ...grpc.CallOption) (*WatchlistResponse, error) {
+	out := new(WatchlistResponse)
+	err := c.cc.Invoke(ctx, "/movies.Movies/GetWatchlist", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MoviesServer is the server API for Movies service.
 type MoviesServer interface {
 	SearchMovie(context.Context, *SearchRequest) (*SearchResponse, error)
 	DetailMovie(context.Context, *DetailRequest) (*DetailResponse, error)
 	Watchlist(context.Context, *WatchlistRequest) (*NoResponse, error)
+	GetWatchlist(context.Context, *GetWatchlistRequest) (*WatchlistResponse, error)
 }
 
 // UnimplementedMoviesServer can be embedded to have forward compatible implementations.
@@ -1004,6 +1241,9 @@ func (*UnimplementedMoviesServer) DetailMovie(context.Context, *DetailRequest) (
 }
 func (*UnimplementedMoviesServer) Watchlist(context.Context, *WatchlistRequest) (*NoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Watchlist not implemented")
+}
+func (*UnimplementedMoviesServer) GetWatchlist(context.Context, *GetWatchlistRequest) (*WatchlistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWatchlist not implemented")
 }
 
 func RegisterMoviesServer(s *grpc.Server, srv MoviesServer) {
@@ -1064,6 +1304,24 @@ func _Movies_Watchlist_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Movies_GetWatchlist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWatchlistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MoviesServer).GetWatchlist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/movies.Movies/GetWatchlist",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MoviesServer).GetWatchlist(ctx, req.(*GetWatchlistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Movies_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "movies.Movies",
 	HandlerType: (*MoviesServer)(nil),
@@ -1079,6 +1337,10 @@ var _Movies_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Watchlist",
 			Handler:    _Movies_Watchlist_Handler,
+		},
+		{
+			MethodName: "GetWatchlist",
+			Handler:    _Movies_GetWatchlist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

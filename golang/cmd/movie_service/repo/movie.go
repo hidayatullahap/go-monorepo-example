@@ -22,6 +22,7 @@ type IMovieRepo interface {
 	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
 	AddWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error
 	RemoveWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error
+	GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error)
 }
 
 type MovieRepo struct {
@@ -83,7 +84,8 @@ func (r *MovieRepo) AddWatchlistMovie(ctx context.Context, req entity.WatchlistR
 	}
 
 	data := bson.M{"$set": &wl, "$setOnInsert": bson.M{"_id": pkg.NewULID()}}
-	_, err = r.db.Collection(m.CollectionWatchlist).UpdateOne(ctx, bson.M{"user_id": req.UserID}, &data, opt)
+	filter := bson.M{"user_id": req.UserID, "omdb_id": req.OmdbID}
+	_, err = r.db.Collection(m.CollectionWatchlist).UpdateOne(ctx, filter, &data, opt)
 	return err
 }
 
@@ -91,6 +93,24 @@ func (r *MovieRepo) RemoveWatchlistMovie(ctx context.Context, req entity.Watchli
 	filter := bson.M{"omdb_id": req.OmdbID, "user_id": req.UserID}
 	_, err := r.db.Collection(m.CollectionWatchlist).DeleteOne(ctx, filter)
 	return err
+}
+
+func (r *MovieRepo) GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error) {
+	var list []entity.Watchlist
+
+	filter := bson.M{"user_id": userID}
+	cursor, err := r.db.Collection(m.CollectionWatchlist).Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+
+	defer cursor.Close(ctx)
+	err = cursor.All(ctx, &list)
+	if err != nil {
+		return list, err
+	}
+
+	return list, nil
 }
 
 func NewMovieRepo(app *entity.App) IMovieRepo {

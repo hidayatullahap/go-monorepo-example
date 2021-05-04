@@ -14,6 +14,25 @@ type Handler struct {
 	movieAction action.IMovieAction
 }
 
+func (h *Handler) GetWatchlist(ctx context.Context, request *pb.GetWatchlistRequest) (*pb.WatchlistResponse, error) {
+	list, err := h.movieAction.GetWatchlist(ctx, request.UserId)
+
+	var res pb.WatchlistResponse
+	var movies []*pb.WatchlistMovie
+	for _, movie := range list {
+		movies = append(movies, &pb.WatchlistMovie{
+			Id:         movie.ID,
+			UserId:     movie.UserID,
+			OmdbId:     movie.OmdbID,
+			MovieTitle: movie.MovieTitle,
+		})
+	}
+
+	res.Movies = movies
+
+	return &res, err
+}
+
 func (h *Handler) Watchlist(ctx context.Context, request *pb.WatchlistRequest) (*pb.NoResponse, error) {
 	err := h.movieAction.Watchlist(ctx, entity.WatchlistRequest{
 		UserID: request.UserId,
