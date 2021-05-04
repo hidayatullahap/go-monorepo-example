@@ -14,20 +14,6 @@ type Handler struct {
 	userAction action.IUserAction
 }
 
-func (h *Handler) FindUser(ctx context.Context, request *pb.UserRequest) (*pb.User, error) {
-	user, err := h.userAction.FindUser(ctx, request.Username)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pb.User{
-		Id:       user.ID,
-		Username: user.Username,
-		FullName: user.FullName,
-		Password: user.Password,
-	}, nil
-}
-
 func (h *Handler) CreateUser(ctx context.Context, pbUser *pb.User) (*pb.NoResponse, error) {
 	user := builder.BuildUserFromProto(pbUser)
 	err := h.userAction.CreateUser(ctx, user)

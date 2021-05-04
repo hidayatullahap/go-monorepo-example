@@ -6,7 +6,7 @@ service Users {
   rpc Hello (HelloRequest) returns (HelloResponse);
 
   rpc CreateUser (User) returns (NoResponse);
-  rpc Login (User) returns (Token);
+  rpc FindUser (UserRequest) returns (User);
 }
 
 message HelloRequest {
@@ -17,8 +17,8 @@ message HelloResponse {
   string msg = 1;
 }
 
-message Token {
-  string token = 1;
+message UserRequest {
+  string username = 1;
 }
 
 message NoResponse {

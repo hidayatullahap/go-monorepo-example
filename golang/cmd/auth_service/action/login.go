@@ -7,15 +7,13 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (a *UserAction) Login(ctx context.Context, user entity.User) (string, error) {
+func (a *AuthAction) Login(ctx context.Context, user entity.User) (string, error) {
 	var token string
 	user.Username = strings.ToLower(user.Username)
 
-	filterUsername := bson.M{"username": user.Username}
-	dUser, err := a.userRepo.FindUser(ctx, filterUsername)
+	dUser, err := a.authRepo.FindUser(ctx, user.Username)
 	if err != nil {
 		if err == errors.ErrNotFound {
 			err = errors.InvalidArgument("username or password not match")

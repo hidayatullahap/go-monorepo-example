@@ -9,7 +9,7 @@ import (
 
 type IUserAction interface {
 	CreateUser(context.Context, entity.User) error
-	Login(ctx context.Context, user entity.User) (string, error)
+	FindUser(ctx context.Context, username string) (entity.User, error)
 }
 
 type UserAction struct {
