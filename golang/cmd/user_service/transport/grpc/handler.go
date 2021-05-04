@@ -17,6 +17,7 @@ type Handler struct {
 func (h *Handler) CreateUser(ctx context.Context, pbUser *pb.User) (*pb.NoResponse, error) {
 	user := builder.BuildUserFromProto(pbUser)
 	err := h.userAction.CreateUser(ctx, user)
+
 	return &pb.NoResponse{}, err
 }
 

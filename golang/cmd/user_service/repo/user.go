@@ -7,11 +7,13 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	m "github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type IUserRepo interface {
 	CreateUser(context.Context, entity.User) error
+	FindUser(ctx context.Context, filter bson.M) (entity.User, error)
 }
 
 type UserRepo struct {
@@ -31,6 +33,16 @@ func (r *UserRepo) CreateUser(ctx context.Context, user entity.User) error {
 
 	_, err = r.db.Collection(m.CollectionUsers).InsertOne(ctx, user)
 	return err
+}
+
+func (r *UserRepo) FindUser(ctx context.Context, filter bson.M) (entity.User, error) {
+	var user entity.User
+	err := r.db.Collection(m.CollectionUsers).FindOne(ctx, filter).Decode(&user)
+	if err == mongo.ErrNoDocuments {
+		err = errors.ErrNotFound
+	}
+
+	return user, err
 }
 
 func NewUserRepo(app *entity.App) IUserRepo {
