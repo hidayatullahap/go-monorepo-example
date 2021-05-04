@@ -64,6 +64,35 @@ services:
       - ./golang:/usr/src/app
     networks:
       - monorepo_net
+  movie_service:
+    depends_on:
+      - mongodb_container
+      - auth_service
+    build:
+      context: ./golang
+      dockerfile: ./Dockerfile
+      args:
+        project: ./cmd/movie_service
+    environment:
+      - APP_ENV=dev
+      - DB_HOST=mongodb_container
+      - DB_PORT=27017
+      - DB_NAME=badger_db
+      - DB_AUTH=
+      - DB_USERNAME=hidayatullahagung
+      - DB_PASSWORD=12345678
+      - DB_POOL=100
+      - GRPC_PORT=9000
+      - HOST_GRPC_AUTH_SERVICE=auth_service:9000
+      - OMBD_HOST=http://www.omdbapi.com
+      - OMBD_API_KEY=eb0dd7ee
+    ports:
+      - 9093:9000
+    restart: on-failure
+    volumes:
+      - ./golang:/usr/src/app
+    networks:
+      - monorepo_net
 networks:
   monorepo_net:
     driver: bridge
