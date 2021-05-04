@@ -7,7 +7,12 @@ import (
 )
 
 type Config struct {
-	Mongo mongo.MongoConfig
+	Mongo    mongo.MongoConfig
+	Services Services
+}
+
+type Services struct {
+	UserServiceHost string
 }
 
 func NewConfig() Config {
@@ -21,6 +26,10 @@ func NewConfig() Config {
 		Username: os.Getenv("DB_USERNAME"),
 		Password: os.Getenv("DB_PASSWORD"),
 		Pool:     os.Getenv("DB_POOL"),
+	}
+
+	c.Services = Services{
+		UserServiceHost: os.Getenv("HOST_GRPC_USER_SERVICE"),
 	}
 
 	return c
