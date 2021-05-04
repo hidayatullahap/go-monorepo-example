@@ -3,8 +3,8 @@ package action
 import (
 	"context"
 
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/repo"
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
 )
 
 type IAuthAction interface {

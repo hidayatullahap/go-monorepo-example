@@ -3,31 +3,25 @@ package grpc
 import (
 	"context"
 
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/action"
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/builder"
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
-	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/users"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/action"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/proto/auth"
+	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/auth"
 )
 
 type Handler struct {
 	app        *entity.App
-	userAction action.IUserAction
+	userAction action.IAuthAction
 }
 
-func (h *Handler) CreateUser(ctx context.Context, pbUser *pb.User) (*pb.NoResponse, error) {
-	user := builder.BuildUserFromProto(pbUser)
-	err := h.userAction.CreateUser(ctx, user)
+func (h *Handler) Login(ctx context.Context, user *auth.User) (*auth.Token, error) {
 
-	return &pb.NoResponse{}, err
-}
-
-func (h *Handler) Hello(ctx context.Context, request *pb.HelloRequest) (*pb.HelloResponse, error) {
-	return &pb.HelloResponse{Msg: request.Msg}, nil
+	return &pb.Token{Token: "asd"}, nil
 }
 
 func NewGrpcHandler(app *entity.App) *Handler {
 	return &Handler{
 		app:        app,
-		userAction: action.NewUserAction(app),
+		userAction: action.NewAuthAction(app),
 	}
 }

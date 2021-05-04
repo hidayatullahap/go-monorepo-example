@@ -9,12 +9,13 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/grpc/middleware/validator"
-	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/users"
 	"go.elastic.co/apm/module/apmgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
+
+	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/users"
 )
 
 type Server struct {
@@ -40,6 +41,7 @@ func (a *Server) Start() {
 	healthpb.RegisterHealthServer(s, hsrv)
 
 	pb.RegisterUsersServer(s, NewGrpcHandler(a.app))
+
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

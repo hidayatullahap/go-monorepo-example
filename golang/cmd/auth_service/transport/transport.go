@@ -1,8 +1,8 @@
 package transport
 
 import (
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/transport/grpc"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/transport/grpc"
 )
 
 type Transport struct {

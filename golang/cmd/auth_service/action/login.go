@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
 )

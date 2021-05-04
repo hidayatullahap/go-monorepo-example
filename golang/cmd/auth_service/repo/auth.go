@@ -3,7 +3,7 @@ package repo
 import (
 	"context"
 
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

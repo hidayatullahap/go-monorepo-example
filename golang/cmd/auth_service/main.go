@@ -5,8 +5,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/entity"
-	"github.com/hidayatullahap/go-monorepo-example/cmd/user_service/transport"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/transport"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
 	"github.com/joho/godotenv"
 )
@@ -24,7 +24,6 @@ func main() {
 		panic(err)
 	}
 
-	mongo.EnsureIndexes(mongoClient)
 	app.MongoDbClient = mongoClient
 
 	t := transport.NewTransport(app)
