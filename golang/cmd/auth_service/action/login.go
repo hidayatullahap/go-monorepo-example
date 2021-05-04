@@ -7,16 +7,20 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func (a *AuthAction) Login(ctx context.Context, user entity.User) (string, error) {
 	var token string
 	user.Username = strings.ToLower(user.Username)
 
-	dUser, err := a.authRepo.FindUser(ctx, user.Username)
+	dUser, err := a.authRepo.FindUser(ctx, user)
 	if err != nil {
-		if err == errors.ErrNotFound {
-			err = errors.InvalidArgument("username or password not match")
+		if st, ok := status.FromError(err); ok {
+			if st.Code() == codes.NotFound {
+				err = errors.InvalidArgument("username or password not match")
+			}
 		}
 
 		return token, err

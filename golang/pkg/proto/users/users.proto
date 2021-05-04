@@ -19,6 +19,7 @@ message HelloResponse {
 
 message UserRequest {
   string username = 1;
+  string user_id = 2;
 }
 
 message NoResponse {

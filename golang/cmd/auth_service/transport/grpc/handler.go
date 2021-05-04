@@ -14,6 +14,21 @@ type Handler struct {
 	authAction action.IAuthAction
 }
 
+func (h *Handler) Auth(ctx context.Context, token *pb.Token) (*pb.User, error) {
+	user, err := h.authAction.Auth(ctx, token.Token)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &pb.User{
+		Id:       user.ID,
+		Username: user.Username,
+		FullName: user.FullName,
+	}
+
+	return res, nil
+}
+
 func (h *Handler) Login(ctx context.Context, user *auth.User) (*auth.Token, error) {
 	userRequest := entity.User{
 		Username: user.Username,

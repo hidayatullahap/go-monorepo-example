@@ -7,6 +7,7 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/cmd/auth_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	m "github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/grpc"
 	pb "github.com/hidayatullahap/go-monorepo-example/pkg/proto/users"
 	"go.mongodb.org/mongo-driver/bson"
@@ -15,8 +16,9 @@ import (
 )
 
 type IAuthRepo interface {
-	FindUser(ctx context.Context, username string) (entity.User, error)
+	FindUser(ctx context.Context, user entity.User) (entity.User, error)
 	UpdateToken(ctx context.Context, token entity.Token) error
+	FindUserToken(ctx context.Context, token string) (entity.Token, error)
 }
 
 type AuthRepo struct {
@@ -38,7 +40,22 @@ func (r *AuthRepo) UpdateToken(ctx context.Context, token entity.Token) error {
 	return nil
 }
 
-func (r *AuthRepo) FindUser(ctx context.Context, username string) (entity.User, error) {
+func (r *AuthRepo) FindUserToken(ctx context.Context, token string) (entity.Token, error) {
+	var userToken entity.Token
+
+	err := r.db.Collection(m.CollectionUserToken).FindOne(ctx, bson.M{"token": token}).Decode(&userToken)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			err = errors.ErrNotFound
+		}
+
+		return userToken, err
+	}
+
+	return userToken, nil
+}
+
+func (r *AuthRepo) FindUser(ctx context.Context, req entity.User) (entity.User, error) {
 	var user entity.User
 
 	conn, err := grpc.Dial(r.hosts.UserServiceHost)
@@ -48,7 +65,8 @@ func (r *AuthRepo) FindUser(ctx context.Context, username string) (entity.User, 
 
 	defer conn.Close()
 
-	res, err := pb.NewUsersClient(conn).FindUser(ctx, &pb.UserRequest{Username: username})
+	pbReq := &pb.UserRequest{Username: req.Username, UserId: req.ID}
+	res, err := pb.NewUsersClient(conn).FindUser(ctx, pbReq)
 	if err != nil {
 		return user, err
 	}

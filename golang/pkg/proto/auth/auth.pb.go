@@ -200,10 +200,12 @@ var file_golang_pkg_proto_auth_auth_proto_rawDesc = []byte{
 	0x6c, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x75,
 	0x6c, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f,
 	0x72, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f,
-	0x72, 0x64, 0x32, 0x28, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x20, 0x0a, 0x05, 0x4c, 0x6f,
+	0x72, 0x64, 0x32, 0x49, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x20, 0x0a, 0x05, 0x4c, 0x6f,
 	0x67, 0x69, 0x6e, 0x12, 0x0a, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x1a,
-	0x0b, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x0b, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x1f, 0x0a, 0x04,
+	0x41, 0x75, 0x74, 0x68, 0x12, 0x0b, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x54, 0x6f, 0x6b, 0x65,
+	0x6e, 0x1a, 0x0a, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -226,9 +228,11 @@ var file_golang_pkg_proto_auth_auth_proto_goTypes = []interface{}{
 }
 var file_golang_pkg_proto_auth_auth_proto_depIdxs = []int32{
 	2, // 0: auth.Auth.Login:input_type -> auth.User
-	0, // 1: auth.Auth.Login:output_type -> auth.Token
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // 1: auth.Auth.Auth:input_type -> auth.Token
+	0, // 2: auth.Auth.Login:output_type -> auth.Token
+	2, // 3: auth.Auth.Auth:output_type -> auth.User
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -310,6 +314,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AuthClient interface {
 	Login(ctx context.Context, in *User, opts ...grpc.CallOption) (*Token, error)
+	Auth(ctx context.Context, in *Token, opts ...grpc.CallOption) (*User, error)
 }
 
 type authClient struct {
@@ -329,9 +334,19 @@ func (c *authClient) Login(ctx context.Context, in *User, opts ...grpc.CallOptio
 	return out, nil
 }
 
+func (c *authClient) Auth(ctx context.Context, in *Token, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/auth.Auth/Auth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 type AuthServer interface {
 	Login(context.Context, *User) (*Token, error)
+	Auth(context.Context, *Token) (*User, error)
 }
 
 // UnimplementedAuthServer can be embedded to have forward compatible implementations.
@@ -340,6 +355,9 @@ type UnimplementedAuthServer struct {
 
 func (*UnimplementedAuthServer) Login(context.Context, *User) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (*UnimplementedAuthServer) Auth(context.Context, *Token) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Auth not implemented")
 }
 
 func RegisterAuthServer(s *grpc.Server, srv AuthServer) {
@@ -364,6 +382,24 @@ func _Auth_Login_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_Auth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Token)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Auth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.Auth/Auth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Auth(ctx, req.(*Token))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Auth_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "auth.Auth",
 	HandlerType: (*AuthServer)(nil),
@@ -371,6 +407,10 @@ var _Auth_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _Auth_Login_Handler,
+		},
+		{
+			MethodName: "Auth",
+			Handler:    _Auth_Auth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

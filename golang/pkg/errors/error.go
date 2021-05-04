@@ -8,7 +8,9 @@ import (
 )
 
 var (
-	ErrNotFound = errors.New("resource not found")
+	ErrNotFound     = errors.New("resource not found")
+	ErrUnauthorized = status.Errorf(codes.Unauthorized, "unauthorized")
+	ErrUserNotFound = NotFound("user not found")
 )
 
 func InternalError(message string) error {

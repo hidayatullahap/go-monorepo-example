@@ -14,8 +14,12 @@ type Handler struct {
 	userAction action.IUserAction
 }
 
-func (h *Handler) FindUser(ctx context.Context, request *pb.UserRequest) (*pb.User, error) {
-	user, err := h.userAction.FindUser(ctx, request.Username)
+func (h *Handler) FindUser(ctx context.Context, req *pb.UserRequest) (*pb.User, error) {
+	user, err := h.userAction.FindUser(ctx, entity.User{
+		ID:       req.UserId,
+		Username: req.Username,
+	})
+
 	if err != nil {
 		return nil, err
 	}
