@@ -58,7 +58,7 @@ services:
       - GRPC_PORT=9000
       - HOST_GRPC_USER_SERVICE=user_service:9000
     ports:
-      - 9092:9090
+      - 9092:9000
     restart: on-failure
     volumes:
       - ./golang:/usr/src/app
