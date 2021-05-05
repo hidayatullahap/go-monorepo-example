@@ -5,6 +5,12 @@ This is how movie service designed. There are 3 gRPC servers which have a specif
 movie watchlist. User service for User management and auth service for authentication. These 3 services will get bound
 with gateway. Gateway will check for access authentication then if it authenticated it will go to designated service.
 
+### Folder Structure
+
+This project will use golang as the main language. Every service will put inside golang/cmd. pkg folder can be accessed
+from all services. inside pkg there are many helpers for application functionality as mongo db connection, mongo index.
+error handling, grpc helper, http helper, config, crypt, ulid and validator
+
 ### Prerequisite
 
 You need to have this following for running this repo:

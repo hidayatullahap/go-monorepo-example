@@ -96,13 +96,13 @@ func (r *MovieRepo) AddWatchlistMovie(ctx context.Context, req entity.WatchlistR
 	}
 
 	data := bson.M{"$set": &wl, "$setOnInsert": bson.M{"_id": pkg.NewULID()}}
-	filter := bson.M{"user_id": req.UserID, "omdb_id": req.ImdbID}
+	filter := bson.M{"user_id": req.UserID, "imdb_id": req.ImdbID}
 	_, err = r.db.Collection(m.CollectionWatchlist).UpdateOne(ctx, filter, &data, opt)
 	return err
 }
 
 func (r *MovieRepo) RemoveWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error {
-	filter := bson.M{"omdb_id": req.ImdbID, "user_id": req.UserID}
+	filter := bson.M{"imdb_id": req.ImdbID, "user_id": req.UserID}
 	_, err := r.db.Collection(m.CollectionWatchlist).DeleteOne(ctx, filter)
 	return err
 }

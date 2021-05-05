@@ -21,7 +21,7 @@ func EnsureIndexes(db *mongo.Database) {
 
 	EnsureIndex(db, CollectionUsers, bson.M{"username": 1}, opt)
 	EnsureIndex(db, CollectionUserToken, bson.M{"token": 1}, opt)
-	EnsureIndex(db, CollectionWatchlist, bson.M{"omdb_id": 1}, opt)
+	EnsureIndex(db, CollectionWatchlist, bson.M{"imdb_id": 1}, opt)
 
 }
 
