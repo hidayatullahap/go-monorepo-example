@@ -7,6 +7,8 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/action"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/entity"
 	movieEntity "github.com/hidayatullahap/go-monorepo-example/cmd/movie_service/entity"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/auth"
+	"github.com/hidayatullahap/go-monorepo-example/pkg/grpc/codes"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/http"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -82,10 +84,14 @@ func (h *Handler) MovieSearch(c echo.Context) error {
 }
 
 func (h *Handler) watchlist(c echo.Context, add bool) error {
-	// TODO AUTH for user ID
+	token, ok := c.Get(auth.ContextTokenValue).(auth.TokenPayload)
+	if !ok {
+		return AuthFailed(c)
+	}
+
 	var req movieEntity.WatchlistRequest
 	req.Fav = add
-	req.UserID = "TODO"
+	req.UserID = token.UserID
 	req.ImdbID = c.Param("imdb_id")
 
 	err := h.action.Watchlist(c.Request().Context(), req)
@@ -94,7 +100,12 @@ func (h *Handler) watchlist(c echo.Context, add bool) error {
 }
 
 func (h *Handler) GetWatchlist(c echo.Context) error {
-	list, err := h.action.UserWatchlist(c.Request().Context(), "TODO")
+	token, ok := c.Get(auth.ContextTokenValue).(auth.TokenPayload)
+	if !ok {
+		return AuthFailed(c)
+	}
+
+	list, err := h.action.UserWatchlist(c.Request().Context(), token.UserID)
 	if err != nil {
 		return err
 	}
@@ -109,6 +120,16 @@ func (h *Handler) AddToWatchlist(c echo.Context) error {
 
 func (h *Handler) RemoveFromWatchlist(c echo.Context) error {
 	return h.watchlist(c, false)
+}
+
+func AuthFailed(c echo.Context) error {
+	resp := http.Response{
+		Code:    codes.InternalError,
+		Message: codes.StatusMessage[codes.InternalError],
+		Errors:  []string{"failed load token data"},
+	}
+
+	return c.JSON(netHttp.StatusInternalServerError, &resp)
 }
 
 func NewHandler(app *entity.App) *Handler {
