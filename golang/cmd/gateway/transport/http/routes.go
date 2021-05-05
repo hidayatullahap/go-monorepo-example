@@ -13,6 +13,7 @@ func setupRoutes(e *echo.Echo, app *entity.App) {
 	h := NewHandler(app)
 	v1 := e.Group("/api/v1")
 	v1.POST("/users/register", h.Register)
+	v1.POST("/users/login", h.Login)
 }
 
 func noContent(e echo.Context) error {

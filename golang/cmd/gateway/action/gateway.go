@@ -8,6 +8,7 @@ import (
 
 type IGatewayAction interface {
 	Register(ctx context.Context, request entity.RegisterRequest) error
+	Login(ctx context.Context, request entity.LoginRequest) (string, error)
 }
 
 type GatewayAction struct {
