@@ -5,7 +5,7 @@ import "google.golang.org/grpc/codes"
 const (
 	// Success status
 	Success codes.Code = 200
-	//SuccessCreated status
+	// SuccessCreated status
 	SuccessCreated codes.Code = 201
 	// SuccessNoContent status
 	SuccessNoContent codes.Code = 204
@@ -32,18 +32,6 @@ const (
 	InvalidSession codes.Code = 413
 	// ResourceExhausted status
 	ResourceExhausted codes.Code = 414
-
-	// InvalidSubdomain status
-	InvalidSubdomain codes.Code = 420
-	// InactiveSubdomain status
-	InactiveSubdomain codes.Code = 421
-	// SuspendedSubdomain status
-	SuspendedSubdomain codes.Code = 422
-
-	// InvalidTransaction status
-	InvalidTransaction codes.Code = 430
-	// DuplicateTransaction status
-	DuplicateTransaction codes.Code = 431
 
 	// InternalError status
 	InternalError codes.Code = 500

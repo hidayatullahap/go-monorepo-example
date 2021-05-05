@@ -37,16 +37,6 @@ func HTTPStatusFromCode(c codes.Code) int {
 		return http.StatusUnauthorized
 	case ResourceExhausted:
 		return http.StatusTooManyRequests
-	case InvalidSubdomain:
-		return http.StatusNotFound
-	case InactiveSubdomain:
-		return http.StatusNotFound
-	case SuspendedSubdomain:
-		return http.StatusForbidden
-	case InvalidTransaction:
-		return http.StatusBadRequest
-	case DuplicateTransaction:
-		return http.StatusConflict
 	case ProcessingError:
 		return http.StatusInternalServerError
 	case InternalError:
