@@ -93,6 +93,16 @@ func (h *Handler) watchlist(c echo.Context, add bool) error {
 	return err
 }
 
+func (h *Handler) GetWatchlist(c echo.Context) error {
+	list, err := h.action.UserWatchlist(c.Request().Context(), "TODO")
+	if err != nil {
+		return err
+	}
+
+	data := bson.M{"movies": list}
+	return c.JSON(netHttp.StatusOK, data)
+}
+
 func (h *Handler) AddToWatchlist(c echo.Context) error {
 	return h.watchlist(c, true)
 }

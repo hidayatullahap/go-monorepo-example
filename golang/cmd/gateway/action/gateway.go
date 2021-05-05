@@ -13,6 +13,7 @@ type IGatewayAction interface {
 	MovieSearch(ctx context.Context, request entity.MovieSearchRequest) (entity.MovieList, error)
 	MovieDetail(ctx context.Context, request entity.MovieSearchRequest) (entity.MovieDetail, error)
 	Watchlist(ctx context.Context, request m.WatchlistRequest) error
+	UserWatchlist(ctx context.Context, userID string) ([]m.Watchlist, error)
 }
 
 type GatewayAction struct {
