@@ -15,6 +15,8 @@ type SearchResponse struct {
 	Movies       []Movie `json:"Search"`
 	TotalResults string  `json:"totalResults"`
 	Response     string  `json:"Response"`
+	Page         int64   `json:"page"`
+	Result       int64   `json:"result"`
 }
 
 type Movie struct {

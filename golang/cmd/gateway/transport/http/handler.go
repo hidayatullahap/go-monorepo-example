@@ -2,6 +2,7 @@ package http
 
 import (
 	netHttp "net/http"
+	"strconv"
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/action"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/entity"
@@ -43,6 +44,31 @@ func (h *Handler) Login(c echo.Context) error {
 	}
 
 	return c.JSON(netHttp.StatusOK, bson.M{"token": token})
+}
+
+func (h *Handler) MovieSearch(c echo.Context) error {
+	var result interface{}
+	page := c.QueryParam("page")
+	pageI, _ := strconv.Atoi(page)
+
+	req := entity.MovieSearchRequest{
+		Search: c.QueryParam("search"),
+		OmdbID: c.QueryParam("omdb_id"),
+		Page:   int64(pageI),
+	}
+
+	if req.OmdbID != "" {
+
+	} else {
+		movies, err := h.action.MovieSearch(c.Request().Context(), req)
+		if err != nil {
+			return err
+		}
+
+		result = movies
+	}
+
+	return c.JSON(netHttp.StatusOK, result)
 }
 
 func NewHandler(app *entity.App) *Handler {

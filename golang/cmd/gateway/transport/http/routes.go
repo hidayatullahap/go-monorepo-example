@@ -14,6 +14,8 @@ func setupRoutes(e *echo.Echo, app *entity.App) {
 	v1 := e.Group("/api/v1")
 	v1.POST("/users/register", h.Register)
 	v1.POST("/users/login", h.Login)
+
+	v1.GET("/movies", h.MovieSearch)
 }
 
 func noContent(e echo.Context) error {

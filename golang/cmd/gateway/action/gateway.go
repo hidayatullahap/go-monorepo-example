@@ -9,6 +9,7 @@ import (
 type IGatewayAction interface {
 	Register(ctx context.Context, request entity.RegisterRequest) error
 	Login(ctx context.Context, request entity.LoginRequest) (string, error)
+	MovieSearch(ctx context.Context, request entity.MovieSearchRequest) (entity.MovieList, error)
 }
 
 type GatewayAction struct {
