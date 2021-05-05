@@ -11,10 +11,10 @@ import (
 	"github.com/hidayatullahap/go-monorepo-example/pkg"
 	m "github.com/hidayatullahap/go-monorepo-example/pkg/db/mongo"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/errors"
-	"github.com/parnurzeal/gorequest"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"gopkg.in/resty.v1"
 )
 
 type IMovieRepo interface {
@@ -28,18 +28,24 @@ type IMovieRepo interface {
 type MovieRepo struct {
 	db      *mongo.Database
 	service entity.Services
+	resty   *resty.Client
 }
 
 func (r *MovieRepo) SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error) {
-	_, body, _ := gorequest.New().
-		Get(r.service.OmdbHost).
-		Query("apikey=" + r.service.OmdbApiKey).
-		Query("s=" + url.QueryEscape(search.Query)).
-		Query("page=" + strconv.Itoa(int(search.Page))).
-		End()
-
 	var res entity.SearchResponse
-	err := json.Unmarshal([]byte(body), &res)
+	resp, err := r.resty.R().
+		SetQueryParams(map[string]string{
+			"apikey": r.service.OmdbApiKey,
+			"s":      url.QueryEscape(search.Query),
+			"page":   strconv.Itoa(int(search.Page)),
+		}).
+		Get(r.service.OmdbHost)
+
+	if err != nil {
+		return res, err
+	}
+
+	err = json.Unmarshal(resp.Body(), &res)
 	if err != nil {
 		return res, err
 	}
@@ -48,14 +54,20 @@ func (r *MovieRepo) SearchMovie(ctx context.Context, search entity.SearchRequest
 }
 
 func (r *MovieRepo) DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error) {
-	_, body, _ := gorequest.New().
-		Get(r.service.OmdbHost).
-		Query("apikey=" + r.service.OmdbApiKey).
-		Query("i=" + omdbID).
-		End()
-
 	var res entity.DetailResponse
-	err := json.Unmarshal([]byte(body), &res)
+
+	resp, err := r.resty.R().
+		SetQueryParams(map[string]string{
+			"apikey": r.service.OmdbApiKey,
+			"i":      omdbID,
+		}).
+		Get(r.service.OmdbHost)
+
+	if err != nil {
+		return res, err
+	}
+
+	err = json.Unmarshal(resp.Body(), &res)
 	if err != nil {
 		return res, err
 	}
@@ -117,5 +129,6 @@ func NewMovieRepo(app *entity.App) IMovieRepo {
 	return &MovieRepo{
 		db:      app.MongoDbClient,
 		service: app.Config.Services,
+		resty:   resty.New(),
 	}
 }
