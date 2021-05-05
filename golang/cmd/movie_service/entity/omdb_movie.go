@@ -6,9 +6,9 @@ type SearchRequest struct {
 }
 
 type WatchlistRequest struct {
-	UserID string
-	ImdbID string
-	Fav    bool
+	UserID string `json:"user_id"`
+	ImdbID string `json:"imdb_id"`
+	Fav    bool   `json:"fav"`
 }
 
 type SearchResponse struct {

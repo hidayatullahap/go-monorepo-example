@@ -987,11 +987,11 @@ var file_golang_pkg_proto_movies_movies_proto_depIdxs = []int32{
 	10, // 2: movies.WatchlistResponse.movies:type_name -> movies.WatchlistMovie
 	3,  // 3: movies.Movies.SearchMovie:input_type -> movies.SearchRequest
 	4,  // 4: movies.Movies.DetailMovie:input_type -> movies.DetailRequest
-	2,  // 5: movies.Movies.Watchlist:input_type -> movies.WatchlistRequest
+	2,  // 5: movies.Movies.AddWatchlist:input_type -> movies.WatchlistRequest
 	1,  // 6: movies.Movies.GetWatchlist:input_type -> movies.GetWatchlistRequest
 	5,  // 7: movies.Movies.SearchMovie:output_type -> movies.SearchResponse
 	7,  // 8: movies.Movies.DetailMovie:output_type -> movies.DetailResponse
-	0,  // 9: movies.Movies.Watchlist:output_type -> movies.NoResponse
+	0,  // 9: movies.Movies.AddWatchlist:output_type -> movies.NoResponse
 	9,  // 10: movies.Movies.GetWatchlist:output_type -> movies.WatchlistResponse
 	7,  // [7:11] is the sub-list for method output_type
 	3,  // [3:7] is the sub-list for method input_type
@@ -1205,7 +1205,7 @@ func (c *moviesClient) DetailMovie(ctx context.Context, in *DetailRequest, opts 
 
 func (c *moviesClient) Watchlist(ctx context.Context, in *WatchlistRequest, opts ...grpc.CallOption) (*NoResponse, error) {
 	out := new(NoResponse)
-	err := c.cc.Invoke(ctx, "/movies.Movies/Watchlist", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/movies.Movies/AddWatchlist", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1240,7 +1240,7 @@ func (*UnimplementedMoviesServer) DetailMovie(context.Context, *DetailRequest) (
 	return nil, status.Errorf(codes.Unimplemented, "method DetailMovie not implemented")
 }
 func (*UnimplementedMoviesServer) Watchlist(context.Context, *WatchlistRequest) (*NoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Watchlist not implemented")
+	return nil, status.Errorf(codes.Unimplemented, "method AddWatchlist not implemented")
 }
 func (*UnimplementedMoviesServer) GetWatchlist(context.Context, *GetWatchlistRequest) (*WatchlistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWatchlist not implemented")
@@ -1296,7 +1296,7 @@ func _Movies_Watchlist_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/movies.Movies/Watchlist",
+		FullMethod: "/movies.Movies/AddWatchlist",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MoviesServer).Watchlist(ctx, req.(*WatchlistRequest))
@@ -1335,7 +1335,7 @@ var _Movies_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Movies_DetailMovie_Handler,
 		},
 		{
-			MethodName: "Watchlist",
+			MethodName: "AddWatchlist",
 			Handler:    _Movies_Watchlist_Handler,
 		},
 		{

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/entity"
+	m "github.com/hidayatullahap/go-monorepo-example/cmd/movie_service/entity"
 )
 
 type IGatewayAction interface {
@@ -11,6 +12,7 @@ type IGatewayAction interface {
 	Login(ctx context.Context, request entity.LoginRequest) (string, error)
 	MovieSearch(ctx context.Context, request entity.MovieSearchRequest) (entity.MovieList, error)
 	MovieDetail(ctx context.Context, request entity.MovieSearchRequest) (entity.MovieDetail, error)
+	Watchlist(ctx context.Context, request m.WatchlistRequest) error
 }
 
 type GatewayAction struct {

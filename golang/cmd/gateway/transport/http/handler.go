@@ -6,6 +6,7 @@ import (
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/action"
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/entity"
+	movieEntity "github.com/hidayatullahap/go-monorepo-example/cmd/movie_service/entity"
 	"github.com/hidayatullahap/go-monorepo-example/pkg/http"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -78,6 +79,26 @@ func (h *Handler) MovieSearch(c echo.Context) error {
 	}
 
 	return c.NoContent(netHttp.StatusNoContent)
+}
+
+func (h *Handler) watchlist(c echo.Context, add bool) error {
+	// TODO AUTH for user ID
+	var req movieEntity.WatchlistRequest
+	req.Fav = add
+	req.UserID = "TODO"
+	req.ImdbID = c.Param("imdb_id")
+
+	err := h.action.Watchlist(c.Request().Context(), req)
+
+	return err
+}
+
+func (h *Handler) AddToWatchlist(c echo.Context) error {
+	return h.watchlist(c, true)
+}
+
+func (h *Handler) RemoveFromWatchlist(c echo.Context) error {
+	return h.watchlist(c, false)
 }
 
 func NewHandler(app *entity.App) *Handler {

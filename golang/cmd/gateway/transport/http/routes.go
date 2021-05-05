@@ -15,6 +15,8 @@ func setupRoutes(e *echo.Echo, app *entity.App) {
 	v1.POST("/users/register", h.Register)
 	v1.POST("/users/login", h.Login)
 
+	v1.PUT("/movies/watchlist/:imdb_id", h.AddToWatchlist)
+	v1.DELETE("/movies/watchlist/:imdb_id", h.RemoveFromWatchlist)
 	v1.GET("/movies", h.MovieSearch)
 }
 
