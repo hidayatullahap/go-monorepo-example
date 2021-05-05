@@ -9,8 +9,6 @@ start-test:build-test ## Build and start docker containers (test)
 
 exec-test: ## Execute test suite
 	docker-compose -f docker-compose.test.yml exec golang_test gotest -v -race -coverprofile=/tmp/coverage.out ./...
-	docker-compose -f docker-compose.test.yml exec nodejs_test ng lint
-	docker-compose -f docker-compose.test.yml exec nodejs_test ng test
 
 stop-test: ## Stop docker containers (test)
 	docker-compose -f docker-compose.test.yml stop
