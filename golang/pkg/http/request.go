@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/labstack/echo/v4"
 	"go.elastic.co/apm/module/apmhttp"
 )
 
@@ -39,4 +40,11 @@ func Request(ctx context.Context, method string, url string, bytesData []byte, h
 	req = req.WithContext(ctx)
 	res, err := client.Do(req)
 	return res, err
+}
+
+func BindAndValidate(c echo.Context, r interface{}) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	return c.Validate(r)
 }

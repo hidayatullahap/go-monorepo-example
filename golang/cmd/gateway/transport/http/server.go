@@ -3,11 +3,9 @@ package http
 import (
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/hidayatullahap/go-monorepo-example/cmd/gateway/entity"
 	"github.com/labstack/echo/v4"
-	"github.com/tylerb/graceful"
 )
 
 const defaultPort = "1313"
@@ -31,10 +29,7 @@ func (s *Server) Start() {
 	s.e.HideBanner = false
 
 	log.Printf("Http server start at port %s", port)
-	err := graceful.ListenAndServe(s.e.Server, 5*time.Second)
-	if err != nil {
-		log.Panic(err)
-	}
+	s.e.Logger.Fatal(s.e.Start(fmt.Sprintf(":%v", port)))
 }
 
 func NewHttpServer(app *entity.App) *Server {
