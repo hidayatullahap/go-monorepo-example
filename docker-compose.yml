@@ -93,6 +93,29 @@ services:
       - ./golang:/usr/src/app
     networks:
       - monorepo_net
+  gateway:
+    depends_on:
+      - mongodb_container
+      - auth_service
+      - movie_service
+      - user_service
+    build:
+      context: ./golang
+      dockerfile: ./Dockerfile
+      args:
+        project: ./cmd/gateway
+    environment:
+      - HTTP_PORT=8000
+      - HOST_GRPC_USER_SERVICE=user_service:9000
+      - HOST_GRPC_AUTH_SERVICE=auth_service:9000
+      - HOST_GRPC_MOVIE_SERVICE=movie_service:9000
+    ports:
+      - 9094:8000
+    restart: on-failure
+    volumes:
+      - ./golang:/usr/src/app
+    networks:
+      - monorepo_net
 networks:
   monorepo_net:
     driver: bridge
