@@ -31,7 +31,7 @@ wait for the build, after it finished you can start looking for the available re
 
 Export Monorepo collection into your postaman collection
 
-[Postman download](https://drive.google.com/file/d/1zsZqPK7-jGQfRyQIQqn38QH2XeUlHO8Y/view?usp=sharing)
+[Postman download](https://drive.google.com/file/d/1grEUeXn2Bc56MJ3-Ssz8IZaoA0Jy1K7I/view?usp=sharing)
 Remember to set postman env
 
 - token: user token
