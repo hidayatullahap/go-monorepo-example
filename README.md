@@ -31,6 +31,12 @@ Remember to set postman env
 - token: user token
 - host: localhost:9094 (default host)
 
+you connect to mongo db in docker with this creds
+
+```
+mongodb://hidayatullahagung:12345678@localhost:27020/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
+```
+
 you can clean and stop this repo with
 
 ```bash
