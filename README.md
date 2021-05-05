@@ -18,13 +18,23 @@ You need to have this following for running this repo:
 1. Docker
 2. If you're using windows, you need to run wsl2
 3. Internet connection
+4. Git
 
 #### How to build and run
 
-To run this repo type this command
+To run this repo follow this command
+
+- If you don't want to use the zip file clone this repo with
 
 ```bash
-make start
+$ git clone git@github.com:hidayatullahap/go-monorepo-example.git
+```
+
+- cd into go-monorepo-example
+- run the application with
+
+```bash
+$ make start
 ```
 
 wait for the build, after it finished you can start looking for the available rest API.

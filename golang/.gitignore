@@ -17,5 +17,4 @@ vendor/
 # other
 gin-bin
 
-.env
 air
