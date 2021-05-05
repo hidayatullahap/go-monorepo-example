@@ -53,22 +53,31 @@ func (h *Handler) MovieSearch(c echo.Context) error {
 
 	req := entity.MovieSearchRequest{
 		Search: c.QueryParam("search"),
-		OmdbID: c.QueryParam("omdb_id"),
+		ImdbID: c.QueryParam("imdb_id"),
 		Page:   int64(pageI),
 	}
 
-	if req.OmdbID != "" {
+	if req.ImdbID != "" {
+		movieDetail, err := h.action.MovieDetail(c.Request().Context(), req)
+		if err != nil {
+			return err
+		}
 
-	} else {
+		result = movieDetail
+		return c.JSON(netHttp.StatusOK, result)
+	}
+
+	if req.Search != "" {
 		movies, err := h.action.MovieSearch(c.Request().Context(), req)
 		if err != nil {
 			return err
 		}
 
 		result = movies
+		return c.JSON(netHttp.StatusOK, result)
 	}
 
-	return c.JSON(netHttp.StatusOK, result)
+	return c.NoContent(netHttp.StatusNoContent)
 }
 
 func NewHandler(app *entity.App) *Handler {

@@ -23,7 +23,7 @@ func (h *Handler) GetWatchlist(ctx context.Context, request *pb.GetWatchlistRequ
 		movies = append(movies, &pb.WatchlistMovie{
 			Id:         movie.ID,
 			UserId:     movie.UserID,
-			OmdbId:     movie.OmdbID,
+			ImdbId:     movie.ImdbID,
 			MovieTitle: movie.MovieTitle,
 		})
 	}
@@ -36,7 +36,7 @@ func (h *Handler) GetWatchlist(ctx context.Context, request *pb.GetWatchlistRequ
 func (h *Handler) Watchlist(ctx context.Context, request *pb.WatchlistRequest) (*pb.NoResponse, error) {
 	err := h.movieAction.Watchlist(ctx, entity.WatchlistRequest{
 		UserID: request.UserId,
-		OmdbID: request.OmdbId,
+		ImdbID: request.ImdbId,
 		Fav:    request.Fav,
 	})
 
@@ -44,7 +44,7 @@ func (h *Handler) Watchlist(ctx context.Context, request *pb.WatchlistRequest) (
 }
 
 func (h *Handler) DetailMovie(ctx context.Context, request *pb.DetailRequest) (*pb.DetailResponse, error) {
-	res, err := h.movieAction.DetailMovie(ctx, request.OmdbId)
+	res, err := h.movieAction.DetailMovie(ctx, request.ImdbId)
 	if err != nil {
 		return nil, err
 	}

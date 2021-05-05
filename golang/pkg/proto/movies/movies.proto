@@ -18,7 +18,7 @@ message GetWatchlistRequest {
 
 
 message WatchlistRequest {
-  string omdb_id = 1;
+  string imdb_id = 1;
   bool fav = 2;
   string user_id = 3;
 }
@@ -29,7 +29,7 @@ message SearchRequest {
 }
 
 message DetailRequest {
-  string omdb_id = 1;
+  string imdb_id = 1;
 }
 
 message SearchResponse{
@@ -87,6 +87,6 @@ message WatchlistResponse {
 message WatchlistMovie {
   string id = 1;
   string user_id = 2;
-  string omdb_id = 3;
+  string imdb_id = 3;
   string movie_title = 4;
 }

@@ -19,7 +19,7 @@ import (
 
 type IMovieRepo interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
-	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
+	DetailMovie(ctx context.Context, imdbID string) (entity.DetailResponse, error)
 	AddWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error
 	RemoveWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error
 	GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error)
@@ -53,13 +53,13 @@ func (r *MovieRepo) SearchMovie(ctx context.Context, search entity.SearchRequest
 	return res, nil
 }
 
-func (r *MovieRepo) DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error) {
+func (r *MovieRepo) DetailMovie(ctx context.Context, imdbID string) (entity.DetailResponse, error) {
 	var res entity.DetailResponse
 
 	resp, err := r.resty.R().
 		SetQueryParams(map[string]string{
 			"apikey": r.service.OmdbApiKey,
-			"i":      omdbID,
+			"i":      imdbID,
 		}).
 		Get(r.service.OmdbHost)
 
@@ -80,14 +80,14 @@ func (r *MovieRepo) DetailMovie(ctx context.Context, omdbID string) (entity.Deta
 }
 
 func (r *MovieRepo) AddWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error {
-	movie, err := r.DetailMovie(ctx, req.OmdbID)
+	movie, err := r.DetailMovie(ctx, req.ImdbID)
 	if err != nil {
 		return err
 	}
 
 	wl := entity.Watchlist{
 		UserID:     req.UserID,
-		OmdbID:     req.OmdbID,
+		ImdbID:     req.ImdbID,
 		MovieTitle: movie.Title,
 	}
 
@@ -96,13 +96,13 @@ func (r *MovieRepo) AddWatchlistMovie(ctx context.Context, req entity.WatchlistR
 	}
 
 	data := bson.M{"$set": &wl, "$setOnInsert": bson.M{"_id": pkg.NewULID()}}
-	filter := bson.M{"user_id": req.UserID, "omdb_id": req.OmdbID}
+	filter := bson.M{"user_id": req.UserID, "omdb_id": req.ImdbID}
 	_, err = r.db.Collection(m.CollectionWatchlist).UpdateOne(ctx, filter, &data, opt)
 	return err
 }
 
 func (r *MovieRepo) RemoveWatchlistMovie(ctx context.Context, req entity.WatchlistRequest) error {
-	filter := bson.M{"omdb_id": req.OmdbID, "user_id": req.UserID}
+	filter := bson.M{"omdb_id": req.ImdbID, "user_id": req.UserID}
 	_, err := r.db.Collection(m.CollectionWatchlist).DeleteOne(ctx, filter)
 	return err
 }

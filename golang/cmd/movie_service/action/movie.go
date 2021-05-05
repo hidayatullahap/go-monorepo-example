@@ -9,7 +9,7 @@ import (
 
 type IMovieAction interface {
 	SearchMovie(ctx context.Context, search entity.SearchRequest) (entity.SearchResponse, error)
-	DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error)
+	DetailMovie(ctx context.Context, imdbID string) (entity.DetailResponse, error)
 	Watchlist(ctx context.Context, req entity.WatchlistRequest) error
 	GetWatchlist(ctx context.Context, userID string) ([]entity.Watchlist, error)
 }
@@ -22,8 +22,8 @@ func (a *MovieAction) SearchMovie(ctx context.Context, search entity.SearchReque
 	return a.movieRepo.SearchMovie(ctx, search)
 }
 
-func (a *MovieAction) DetailMovie(ctx context.Context, omdbID string) (entity.DetailResponse, error) {
-	return a.movieRepo.DetailMovie(ctx, omdbID)
+func (a *MovieAction) DetailMovie(ctx context.Context, imdbID string) (entity.DetailResponse, error) {
+	return a.movieRepo.DetailMovie(ctx, imdbID)
 }
 
 func (a *MovieAction) Watchlist(ctx context.Context, req entity.WatchlistRequest) error {

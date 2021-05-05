@@ -13,6 +13,6 @@ type LoginRequest struct {
 
 type MovieSearchRequest struct {
 	Search string `json:"search"`
-	OmdbID string `json:"omdb_id"`
+	ImdbID string `json:"imdb_id"`
 	Page   int64  `json:"page"`
 }

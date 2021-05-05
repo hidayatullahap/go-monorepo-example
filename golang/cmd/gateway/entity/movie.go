@@ -10,7 +10,7 @@ type MovieList struct {
 type Movie struct {
 	Title  string `json:"title"`
 	Year   string `json:"year"`
-	ImdbID string `json:"imdb_iD"`
+	ImdbID string `json:"imdb_id"`
 	Type   string `json:"type"`
 	Poster string `json:"poster"`
 }
@@ -40,7 +40,6 @@ type MovieDetail struct {
 	BoxOffice  string   `json:"box_office"`
 	Production string   `json:"production"`
 	Website    string   `json:"website"`
-	Response   string   `json:"response"`
 }
 
 type Rating struct {

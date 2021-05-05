@@ -7,7 +7,7 @@ type SearchRequest struct {
 
 type WatchlistRequest struct {
 	UserID string
-	OmdbID string
+	ImdbID string
 	Fav    bool
 }
 
@@ -64,6 +64,6 @@ type Rating struct {
 type Watchlist struct {
 	ID         string `json:"_id,omitempty" bson:"_id,omitempty"`
 	UserID     string `json:"user_id" bson:"user_id"`
-	OmdbID     string `json:"omdb_id" bson:"omdb_id"`
+	ImdbID     string `json:"imdb_id" bson:"imdb_id"`
 	MovieTitle string `json:"movie_title" bson:"movie_title"`
 }
